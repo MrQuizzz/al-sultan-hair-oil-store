@@ -1,4 +1,4 @@
-# Pak Oil Co. Owner Guide
+# Al Sultan Hair Oil Owner Guide
 
 ## What is connected
 
@@ -6,21 +6,21 @@ The storefront is connected to the Shopify development store created for this pr
 
 ## Claim and configure the Shopify store
 
-Open the project Management UI and go to **Settings → Integrations → Shopify**. Claim the development store and complete Shopify authorization before using the site for real orders. In Shopify Admin, set the store currency to **PKR**, add the correct Pakistan shipping zones and rates, enable the payment methods you support, and configure **Cash on Delivery** if it is available for your checkout setup. Remove the Shopify password page before launch so customers can access the storefront.
+Open the project Management UI and go to **Settings → Integrations → Shopify**. Claim the development store and complete Shopify authorization before using the site for real orders. In Shopify Admin, set the store currency to **PKR**, add the correct Pakistan shipping zones and rates, and configure the payment options you actually support. The recommended launch setup is **Cash on Delivery** plus an optional **bank-transfer** instruction. If you accept Easypaisa or JazzCash, add the account number or merchant instructions clearly in the payment instructions and WhatsApp confirmation flow. Card or wallet checkout should be enabled only through a payment gateway supported by your Shopify store and Pakistan business setup; do not advertise a gateway until its live test succeeds. Remove the Shopify password page before launch so customers can access the storefront.
 
 ## Edit products
 
-Use Shopify Admin to replace the two starter preview products with the real Pak Oil Co. catalogue. For each product, enter the exact title, product type, description, pack size, price in PKR, inventory quantity, ingredients, usage directions, warnings, and approved product information. Upload real product photography that shares one consistent visual style. Do not publish health or medical claims unless they are accurate, permitted, and supported by your local requirements. Product changes appear in the storefront after Shopify publishes them to the Manus sales channel.
+Use Shopify Admin to replace the preview products with the real Al Sultan Hair Oil catalogue. The first confirmed product is **Al Sultan Herbal Hair Oil**. For each product, enter the exact title, product type, description, pack size, price in PKR, inventory quantity, ingredients, usage directions, warnings, and approved product information. Upload real product photography that shares one consistent visual style. Do not publish health or medical claims unless they are accurate, permitted, and supported by your local requirements. Product changes appear in the storefront after Shopify publishes them to the Manus sales channel.
 
-The current two products are preview entries only. Replace their temporary imagery and starter descriptions before accepting customer orders. The storefront displays the explicit `Format` and `Highlights` metadata from each Shopify description as compact chips.
+The current preview catalogue is being replaced with Al Sultan Herbal Hair Oil content. Replace any remaining temporary imagery and starter descriptions before accepting customer orders. The confirmed product price is PKR 1,000; update that price in Shopify so cart and checkout use the same amount. The storefront displays the explicit `Format` and `Highlights` metadata from each Shopify description as compact chips.
 
 ## Change WhatsApp contact
 
-Open `client/src/pages/Home.tsx` and replace the value of `WHATSAPP_NUMBER` with the business WhatsApp number in international format, without plus signs, spaces, or dashes. For example, a Pakistani number should look like `923001234567`. Then rerun the project checks and save a new checkpoint. The header, hero, and contact section will use the same WhatsApp link.
+The storefront now uses the confirmed WhatsApp number **03025986280**, stored in international format as `923025986280`. Keep this number consistent in Shopify, social profiles, and all advertising materials. The header, hero, and contact section will use the same WhatsApp link.
 
 ## Test ordering
 
-Add a product to the bag, increase and decrease the quantity, remove an item, and select **Continue to secure checkout**. Shopify should open the checkout URL in a new tab. Test checkout with Shopify’s supported test configuration before accepting live payments. Confirm that the product price, PKR currency, shipping information, and cash-on-delivery message are correct on a phone and desktop browser.
+Add a product to the bag, increase and decrease the quantity, remove an item, and select **Continue to secure checkout**. Shopify should open the checkout URL in a new tab. Test checkout with Shopify’s supported test configuration before accepting live payments. Confirm that the product price, PKR currency, shipping information, and cash-on-delivery message are correct on a phone and desktop browser. If bank transfer, Easypaisa, JazzCash, or a card gateway is enabled, place a test order and confirm the payment instructions, transaction reference process, and order status before advertising that method.
 
 ## Publish
 

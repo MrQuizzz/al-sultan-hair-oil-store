@@ -27,3 +27,28 @@
 - [x] Perform basic accessibility checks for keyboard navigation, focus visibility, labels, and contrast
 - [x] Write owner-facing customization and publishing guidance, including Shopify ownership claim, product editing, WhatsApp number update, and publish steps
 - [x] Replace temporary preview imagery with a coherent branded image set or clearly mark the current imagery as temporary preview assets
+
+- [x] Rebrand visible storefront text, title, and brand identity to Al Sultan Hair Oil
+- [ ] Update Shopify preview catalogue naming and descriptions for the Al Sultan Hair Oil brand
+- [x] Focus product messaging and category labels on hair oil while preserving editable product structure
+- [x] Add clear Shopify checkout payment guidance for Pakistan, including cash on delivery and supported online methods
+- [x] Update owner guide with the Al Sultan Hair Oil payment configuration steps
+- [x] Re-run tests, verify responsive rebrand, and save a new checkpoint
+
+- [x] Replace the temporary WhatsApp contact with 03025986280 / international format 923025986280
+- [x] Refresh the brand bio and contact copy for Al Sultan Hair Oil
+- [ ] Add owner-supplied oil photos, names, benefits, ingredients, sizes, and prices
+- [ ] Prepare accurate TikTok and Facebook advertising copy, captions, hooks, and WhatsApp order prompts
+
+- [ ] Set the confirmed Al Sultan Hair Oil price to PKR 1,000
+- [ ] Keep delivery charges configurable and display delivery confirmation at checkout
+- [ ] Make the oil product card open product details with clear Add to Cart and Order Now actions
+
+- [x] Use the supplied bottle photo for Al Sultan Herbal Hair Oil in the storefront
+- [ ] Rename the Shopify/product presentation to Al Sultan Herbal Hair Oil
+- [ ] Keep the product price at PKR 1,000 once Shopify access is approved
+- [ ] Add ingredients and benefits only after the owner confirms the exact label information
+
+- [x] Replace raw Shopify category filters with explicit hair-oil-focused display labels
+- [x] Expand payment guidance with concrete Pakistan checkout options and configuration notes
+- [ ] Save a checkpoint after the completed Al Sultan rebrand changes
