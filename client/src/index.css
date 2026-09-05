@@ -175,3 +175,29 @@
     }
   }
 }
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif; }
+  button, a { transition: transform 180ms cubic-bezier(.23,1,.32,1), background-color 180ms ease, color 180ms ease, box-shadow 180ms ease; }
+  button:active, a:active { transform: scale(.98); }
+}
+
+.font-display { font-family: "Playfair Display", Georgia, serif; }
+.eyebrow { color: #c08a2c; font-size: .72rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+.section-title { margin-top: .7rem; font-family: "Playfair Display", Georgia, serif; font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: .98; color: #174f3b; }
+.hero-section { background: radial-gradient(circle at 70% 45%, rgba(249,207,107,.22), transparent 28%), linear-gradient(135deg, #fffdf7 0%, #f7f0de 100%); }
+.hero-art { background: linear-gradient(145deg, #d9e0b7, #f4df9d 50%, #c6d4a6); }
+.bottle { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; border: 5px solid rgba(255,253,247,.7); border-bottom: 20px solid #174f3b; border-radius: 1.4rem 1.4rem 1rem 1rem; background: linear-gradient(135deg, #a7672f, #5d301d 65%, #3d231b); color: #f9cf6b; box-shadow: 0 30px 35px rgba(23,79,59,.22); font-family: "Playfair Display", Georgia, serif; font-size: 1.05rem; font-weight: 800; line-height: 1.05; text-align: center; }
+.bottle::before { content: ""; position: absolute; top: -42px; width: 44%; height: 46px; border-radius: .7rem .7rem .2rem .2rem; background: #174f3b; box-shadow: inset 0 5px 0 rgba(255,255,255,.15); }
+.bottle-tall { height: 280px; width: 150px; transform: rotate(-7deg); }
+.bottle-short { height: 215px; width: 155px; transform: rotate(7deg); background: linear-gradient(135deg, #b99032, #79551e 70%, #4e3a1a); }
+.product-card { display: flex; min-height: 100%; flex-direction: column; border-radius: 1.7rem; background: white; padding: .7rem .7rem 1.5rem; box-shadow: 0 18px 50px rgba(61,57,37,.07); transition: transform 220ms ease, box-shadow 220ms ease; }
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 22px 55px rgba(61,57,37,.13); }
+.care-card { border-radius: 1.6rem; background: #f7f0de; padding: 2rem; }
+.care-card span { color: #c08a2c; font-family: "Playfair Display", Georgia, serif; font-size: 2.5rem; }
+.care-card h3 { margin-top: 2rem; font-family: "Playfair Display", Georgia, serif; font-size: 1.7rem; }
+.care-card p { margin-top: .7rem; color: #6f796f; line-height: 1.7; }
+.skeleton-card { height: 420px; border-radius: 1.7rem; background: linear-gradient(90deg, #f4ead2, #fff8e6, #f4ead2); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
