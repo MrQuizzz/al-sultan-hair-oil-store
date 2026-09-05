@@ -18,6 +18,10 @@ The current preview catalogue is being replaced with Al Sultan Herbal Hair Oil c
 
 The storefront now uses the confirmed WhatsApp number **03025986280**, stored in international format as `923025986280`. Keep this number consistent in Shopify, social profiles, and all advertising materials. The header, hero, and contact section will use the same WhatsApp link.
 
+## Product purchase actions
+
+The product card and detail dialog now provide two clear actions. **Add to bag** uses the Shopify cart flow and should be used after the Shopify product name, price, inventory, and checkout are synchronized. **Buy on WhatsApp** opens a pre-filled order message for Al Sultan Herbal Hair Oil at the confirmed PKR 1,000 display price; this is the safe direct-order option while Shopify approval and catalogue synchronization are pending. Confirm the order, delivery charge, payment method, and customer address on WhatsApp before fulfilment.
+
 ## Test ordering
 
 Add a product to the bag, increase and decrease the quantity, remove an item, and select **Continue to secure checkout**. Shopify should open the checkout URL in a new tab. Test checkout with Shopify’s supported test configuration before accepting live payments. Confirm that the product price, PKR currency, shipping information, and cash-on-delivery message are correct on a phone and desktop browser. If bank transfer, Easypaisa, JazzCash, or a card gateway is enabled, place a test order and confirm the payment instructions, transaction reference process, and order status before advertising that method.

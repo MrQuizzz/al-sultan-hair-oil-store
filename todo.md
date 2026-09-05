@@ -42,7 +42,7 @@
 
 - [ ] Set the confirmed Al Sultan Hair Oil price to PKR 1,000
 - [ ] Keep delivery charges configurable and display delivery confirmation at checkout
-- [ ] Make the oil product card open product details with clear Add to Cart and Order Now actions
+- [x] Make the oil product card open product details with clear Add to Cart and Order Now actions
 
 - [x] Use the supplied bottle photo for Al Sultan Herbal Hair Oil in the storefront
 - [ ] Rename the Shopify/product presentation to Al Sultan Herbal Hair Oil
@@ -52,3 +52,7 @@
 - [x] Replace raw Shopify category filters with explicit hair-oil-focused display labels
 - [x] Expand payment guidance with concrete Pakistan checkout options and configuration notes
 - [ ] Save a checkpoint after the completed Al Sultan rebrand changes
+
+- [x] Adjust the supplied Al Sultan Herbal Hair Oil image to fit the product card cleanly without distortion
+- [x] Add a clickable product-detail and buy interface with image, PKR 1,000 price, quantity, and ordering actions
+- [x] Add safe, editable benefits, ingredients, usage, and product-information sections pending owner confirmation

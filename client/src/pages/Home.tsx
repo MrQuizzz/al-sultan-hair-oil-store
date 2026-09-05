@@ -4,6 +4,7 @@ import { useCart } from "@/contexts/CartContext";
 import type { Product } from "@shared/commerce/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   ArrowRight,
   Check,
@@ -33,7 +34,7 @@ function money(value: { amount: string; currencyCode: string }) {
   }).format(Number(value.amount));
 }
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product, onOpen }: { product: Product; onOpen: () => void }) {
   const { addItem, loading } = useCart();
   const variant = product.variants[0];
   const image = product.images[0];
@@ -51,7 +52,7 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="product-card group">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#f4ead2]">
+      <div className="relative aspect-[4/3] cursor-pointer overflow-hidden rounded-[1.5rem] bg-[#f4ead2]" role="button" tabIndex={0} aria-label={`View details for ${displayTitle}`} onClick={onOpen} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onOpen(); } }}>
         {displayImage ? (
           <img src={displayImage.url} alt={displayImage.altText || displayTitle} className="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-105" />
         ) : (
@@ -61,19 +62,19 @@ function ProductCard({ product }: { product: Product }) {
       </div>
       <div className="flex flex-1 flex-col px-1 pt-5">
         <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#c08a2c]">{displayType}</p>
-        <h3 className="font-display text-2xl leading-tight text-[#174f3b]">{displayTitle}</h3>
+        <h3 className="cursor-pointer font-display text-2xl leading-tight text-[#174f3b]" onClick={onOpen}>{displayTitle}</h3>
         <p className="mt-3 line-clamp-2 text-sm leading-6 text-[#6f796f]">{cleanDescription.split("Format:")[0].trim()}</p>
         <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold text-[#174f3b]">{formatMatch && <span className="rounded-full bg-[#f7f0de] px-3 py-1">{formatMatch}</span>}{highlights.slice(0, 3).map((highlight) => <span key={highlight} className="rounded-full bg-[#edf3e6] px-3 py-1">{highlight}</span>)}</div>
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
           <span className="font-display text-2xl text-[#174f3b]">{money(displayPrice)}</span>
-          <Button
-            className="rounded-full bg-[#174f3b] px-5 text-white shadow-lg shadow-[#174f3b]/15 hover:bg-[#0e392b]"
+          <div className="flex flex-wrap justify-end gap-2"><Button
+            className="rounded-full bg-[#174f3b] px-4 text-white shadow-lg shadow-[#174f3b]/15 hover:bg-[#0e392b]"
             disabled={!variant.availableForSale || loading}
-            onClick={() => isAlSultanOil ? window.open(orderHref, "_blank", "noopener,noreferrer") : addItem(variant.id)}
+            onClick={() => addItem(variant.id)}
           >
             <ShoppingBag size={16} />
-            {variant.availableForSale ? (isAlSultanOil ? "Order on WhatsApp" : "Add to cart") : "Sold out"}
-          </Button>
+            {variant.availableForSale ? "Add to bag" : "Sold out"}
+          </Button>{isAlSultanOil && <a href={orderHref} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-[#174f3b]/20 px-4 text-xs font-bold text-[#174f3b] hover:bg-[#f4ead2]">Order on WhatsApp</a>}</div>
         </div>
       </div>
     </article>
@@ -113,11 +114,42 @@ function CartDrawer() {
   );
 }
 
+function ProductDialog({ product, open, onOpenChange }: { product: Product | null; open: boolean; onOpenChange: (open: boolean) => void }) {
+  const { addItem, loading } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  if (!product) return null;
+  const isAlSultanOil = /signature herbal oil|al sultan herbal hair oil|al sultan hair oil/i.test(product.title);
+  const title = isAlSultanOil ? "Al Sultan Herbal Hair Oil" : product.title;
+  const imageUrl = isAlSultanOil ? AL_SULTAN_HERBAL_HAIR_OIL_IMAGE : product.images[0]?.url;
+  const imageAlt = isAlSultanOil ? "Al Sultan Herbal Hair Oil bottle" : product.title;
+  const price = isAlSultanOil ? { amount: "1000", currencyCode: "PKR" } : product.variants[0].price;
+  const orderHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Assalam-o-Alaikum, I would like to order ${title} x${quantity} for ${money(price)}.`)}`;
+  const description = isAlSultanOil ? "A carefully presented herbal hair oil for an everyday personal-care ritual. Confirm the exact ingredients and approved label benefits before publishing the final product copy." : product.description.replace(/<[^>]+>/g, "");
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-[2rem] border-[#eadfc7] bg-[#fffdf7] sm:max-w-2xl">
+        <div className="grid gap-7 md:grid-cols-[.85fr_1.15fr] md:items-center">
+          <div className="flex min-h-72 items-center justify-center rounded-[1.5rem] bg-[#f4ead2] p-6"><img src={imageUrl} alt={imageAlt} className="max-h-80 w-full object-contain" /></div>
+          <div>
+            <DialogHeader><p className="text-xs font-bold uppercase tracking-[0.18em] text-[#c08a2c]">Herbal Hair Oil</p><DialogTitle className="font-display text-3xl leading-tight text-[#174f3b]">{title}</DialogTitle><DialogDescription className="pt-2 text-base leading-7 text-[#6f796f]">{description}</DialogDescription></DialogHeader>
+            <div className="mt-5 flex flex-wrap gap-2 text-sm font-semibold text-[#174f3b]"><span className="rounded-full bg-[#f7f0de] px-3 py-1">PKR 1,000</span><span className="rounded-full bg-[#edf3e6] px-3 py-1">Bottle size: confirm on label</span><span className="rounded-full bg-[#edf3e6] px-3 py-1">Cash on delivery</span></div>
+            <div className="mt-6 grid gap-3 text-sm leading-6 text-[#5f7067]"><p><strong className="text-[#174f3b]">Product benefits:</strong> supports a simple everyday hair-care routine, presented in a clear bottle, and easy to order across Pakistan.</p><p><strong className="text-[#174f3b]">Ingredients:</strong> please confirm the exact label ingredients before final publication.</p><p><strong className="text-[#174f3b]">Usage:</strong> follow the final bottle label directions and use only as instructed on the approved packaging.</p><p><strong className="text-[#174f3b]">Delivery:</strong> shipping charges and final delivery details are confirmed when the order is placed.</p></div>
+            <div className="mt-7 flex flex-wrap items-center gap-3"><div className="flex items-center rounded-full border border-[#eadfc7] bg-white"><button aria-label="Decrease quantity" onClick={() => setQuantity((value) => Math.max(1, value - 1))} className="px-3 py-2 text-[#174f3b]">−</button><span className="w-8 text-center font-semibold">{quantity}</span><button aria-label="Increase quantity" onClick={() => setQuantity((value) => value + 1)} className="px-3 py-2 text-[#174f3b]">+</button></div><Button disabled={loading} onClick={() => addItem(product.variants[0].id)} className="rounded-full bg-[#174f3b] px-5 text-white hover:bg-[#0e392b]">Add to bag</Button>{isAlSultanOil && <a href={orderHref} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-[#174f3b]/20 px-5 py-2 text-sm font-bold text-[#174f3b] hover:bg-[#f4ead2]">Buy on WhatsApp</a>}</div>
+          </div>
+        </div>
+        <DialogFooter><p className="w-full text-xs text-[#8a8f86]">Please verify ingredients, benefits, bottle size, and usage directions from the final product label before advertising.</p></DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function Home() {
   const { data: products = [], isLoading } = trpc.commerce.products.list.useQuery({ first: 25 });
   const { itemCount, openCart } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState("All");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const hairOilProducts = products.filter((product) => !/phaki/i.test(`${product.title} ${product.productType || ""}`));
   const categories = useMemo(() => hairOilProducts.length ? ["All", "Herbal Hair Oil"] : ["All"], [hairOilProducts.length]);
   const visibleProducts = hairOilProducts.filter((product) => filter === "All" || filter === "Herbal Hair Oil");
@@ -139,7 +171,7 @@ export default function Home() {
 
         <section className="border-y border-[#eadfc7] bg-[#f7f0de]"><div className="container grid gap-6 py-7 sm:grid-cols-3"><div className="flex items-center gap-3"><Truck className="text-[#c08a2c]" /><div><p className="font-bold">Delivered nationwide</p><p className="text-sm text-[#6f796f]">Across Pakistan</p></div></div><div className="flex items-center gap-3"><ShieldCheck className="text-[#c08a2c]" /><div><p className="font-bold">Carefully presented</p><p className="text-sm text-[#6f796f]">Clear product information</p></div></div><div className="flex items-center gap-3"><PackageCheck className="text-[#c08a2c]" /><div><p className="font-bold">Cash on delivery</p><p className="text-sm text-[#6f796f]">Simple, familiar checkout</p></div></div></div></section>
 
-        <section id="shop" className="container py-24"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><p className="eyebrow">The collection</p><h2 className="section-title">Find your daily favourite.</h2></div><div className="flex flex-wrap gap-2">{categories.map((category) => <button key={category} onClick={() => setFilter(category)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${filter === category ? "bg-[#174f3b] text-white" : "bg-[#f4ead2] text-[#174f3b] hover:bg-[#eadcbf]"}`}>{category}</button>)}</div></div>{isLoading ? <div className="mt-12 grid gap-8 md:grid-cols-2"><div className="skeleton-card" /><div className="skeleton-card" /></div> : <div className="mt-12 grid gap-10 md:grid-cols-2">{visibleProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>}{!isLoading && !visibleProducts.length && <p className="mt-10 rounded-3xl bg-[#f7f0de] p-8 text-center text-[#6f796f]">Your catalogue is ready for its first products. Add them in Shopify to see them here.</p>}</section>
+        <section id="shop" className="container py-24"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><p className="eyebrow">The collection</p><h2 className="section-title">Find your daily favourite.</h2></div><div className="flex flex-wrap gap-2">{categories.map((category) => <button key={category} onClick={() => setFilter(category)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${filter === category ? "bg-[#174f3b] text-white" : "bg-[#f4ead2] text-[#174f3b] hover:bg-[#eadcbf]"}`}>{category}</button>)}</div></div>{isLoading ? <div className="mt-12 grid gap-8 md:grid-cols-2"><div className="skeleton-card" /><div className="skeleton-card" /></div> : <div className="mt-12 grid gap-10 md:grid-cols-2">{visibleProducts.map((product) => <ProductCard key={product.id} product={product} onOpen={() => setSelectedProduct(product)} />)}</div>}{!isLoading && !visibleProducts.length && <p className="mt-10 rounded-3xl bg-[#f7f0de] p-8 text-center text-[#6f796f]">Your catalogue is ready for its first products. Add them in Shopify to see them here.</p>}</section>
 
         <section id="story" className="bg-[#174f3b] text-[#fffdf7]"><div className="container grid gap-12 py-24 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="eyebrow text-[#f9cf6b]">Our promise</p><h2 className="section-title text-[#fffdf7]">Heritage, made easy for today.</h2></div><div className="max-w-2xl"><p className="text-xl leading-9 text-[#d8e2cb]">Al Sultan Hair Oil brings the familiar warmth of traditional care into a calm, modern shopping experience. Every product page is designed to make the important details easy to find: what it is, how it is packed, and how it reaches your door.</p><div className="mt-8 grid gap-5 sm:grid-cols-2"><div className="rounded-3xl border border-white/15 bg-white/10 p-6"><Leaf className="mb-4 text-[#f9cf6b]" /><h3 className="font-display text-2xl">Thoughtful ingredients</h3><p className="mt-2 text-sm leading-6 text-[#c7d5c1]">We keep the product details clear so you can shop with confidence and choose what fits your home.</p></div><div className="rounded-3xl border border-white/15 bg-white/10 p-6"><Check className="mb-4 text-[#f9cf6b]" /><h3 className="font-display text-2xl">Clear service</h3><p className="mt-2 text-sm leading-6 text-[#c7d5c1]">From product questions to delivery updates, thoughtful support is always close by.</p></div></div></div></div></section>
 
@@ -150,6 +182,7 @@ export default function Home() {
 
       <footer className="bg-[#123829] text-[#d8e2cb]"><div className="container flex flex-col justify-between gap-5 py-10 sm:flex-row sm:items-center"><div><p className="font-display text-2xl text-[#fffdf7]">Al Sultan Hair Oil</p><p className="mt-1 text-sm">Royal care, beautifully bottled.</p></div><p className="text-xs text-[#9fb19a]">© {new Date().getFullYear()} Al Sultan Hair Oil · Pakistan</p></div></footer>
       <CartDrawer />
+      <ProductDialog product={selectedProduct} open={Boolean(selectedProduct)} onOpenChange={(open) => { if (!open) setSelectedProduct(null); }} />
     </div>
   );
 }
