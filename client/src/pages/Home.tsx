@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 
 const WHATSAPP_NUMBER = "923025986280";
-const AL_SULTAN_HERBAL_HAIR_OIL_IMAGE = "/manus-storage/al-sultan-herbal-hair-oil_6e5c359c.png";
+const AL_SULTAN_HERBAL_HAIR_OIL_IMAGE = "/manus-storage/al-sultan-herbal-hair-oil-cinematic_a47b3c3d.png";
 
 function money(value: { amount: string; currencyCode: string }) {
   return new Intl.NumberFormat("en-PK", {

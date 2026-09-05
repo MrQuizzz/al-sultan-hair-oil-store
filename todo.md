@@ -61,3 +61,7 @@
 - [x] Prepare a Daraz-ready Al Sultan Herbal Hair Oil listing with title, category, price, image, description, and safe product fields
 - [x] Add Daraz Seller Center upload and publishing guidance
 - [x] Document that direct Daraz automation requires an approved Daraz seller/API connection
+
+- [x] Create a cinematic premium enhancement of the supplied Al Sultan Herbal Hair Oil bottle image while preserving the real label and bottle identity
+- [x] Upload and replace the storefront product image with the enhanced cinematic asset
+- [x] Validate the enhanced image in the product card and save a checkpoint
