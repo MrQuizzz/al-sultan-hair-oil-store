@@ -65,3 +65,13 @@
 - [x] Create a cinematic premium enhancement of the supplied Al Sultan Herbal Hair Oil bottle image while preserving the real label and bottle identity
 - [x] Upload and replace the storefront product image with the enhanced cinematic asset
 - [x] Validate the enhanced image in the product card and save a checkpoint
+
+- [x] Add Al Sultan Phaki as a separate storefront product above or alongside the hair oil
+- [x] Add Phaki size options for 500g, 1,000g, and 2,500g
+- [x] Use the owner-supplied Phaki jar image in the product card and detail interface
+- [x] Add safe, editable Phaki ingredients, benefits, usage, storage, and product-information sections
+- [x] Show confirmed/available pricing without inventing prices for unconfirmed sizes
+- [x] Add Phaki WhatsApp order messaging and validate the two-product catalogue
+
+- [x] Add a dedicated Phaki storage section using safe placeholder wording until owner confirmation
+- [x] Add a clearly labeled Phaki product-information section separate from benefits, ingredients, usage, and delivery

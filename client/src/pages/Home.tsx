@@ -25,6 +25,25 @@ import {
 
 const WHATSAPP_NUMBER = "923025986280";
 const AL_SULTAN_HERBAL_HAIR_OIL_IMAGE = "/manus-storage/al-sultan-herbal-hair-oil-cinematic_a47b3c3d.png";
+const AL_SULTAN_PHAKI_IMAGE = "/manus-storage/al-sultan-phaki-jar_4ef2d6fa.png";
+const LOCAL_PHAKI_PRODUCT: Product = {
+  id: "local-al-sultan-phaki",
+  handle: "al-sultan-phaki",
+  title: "Al Sultan Phaki",
+  description: "A traditional herbal phaki blend presented in a sealed jar. Confirm final approved product information, usage, storage, and pricing before publishing.",
+  descriptionHtml: "",
+  productType: "Phaki",
+  vendor: "Al Sultan Herbal Products",
+  tags: ["phaki", "herbal blend"],
+  images: [{ url: AL_SULTAN_PHAKI_IMAGE, altText: "Al Sultan Phaki jar" }],
+  priceRange: { min: { amount: "0", currencyCode: "PKR" }, max: { amount: "0", currencyCode: "PKR" } },
+  options: [{ name: "Size", values: ["500g", "1,000g", "2,500g"] }],
+  variants: [
+    { id: "local-phaki-500g", title: "500g", price: { amount: "0", currencyCode: "PKR" }, compareAtPrice: null, availableForSale: false, selectedOptions: [{ name: "Size", value: "500g" }] },
+    { id: "local-phaki-1000g", title: "1,000g", price: { amount: "0", currencyCode: "PKR" }, compareAtPrice: null, availableForSale: false, selectedOptions: [{ name: "Size", value: "1,000g" }] },
+    { id: "local-phaki-2500g", title: "2,500g", price: { amount: "0", currencyCode: "PKR" }, compareAtPrice: null, availableForSale: false, selectedOptions: [{ name: "Size", value: "2,500g" }] },
+  ],
+};
 
 function money(value: { amount: string; currencyCode: string }) {
   return new Intl.NumberFormat("en-PK", {
@@ -40,15 +59,17 @@ function ProductCard({ product, onOpen }: { product: Product; onOpen: () => void
   const image = product.images[0];
   const productType = product.productType || "Product";
   const isAlSultanOil = /signature herbal oil|al sultan herbal hair oil|al sultan hair oil/i.test(product.title);
-  const displayTitle = isAlSultanOil ? "Al Sultan Herbal Hair Oil" : product.title;
-  const displayType = isAlSultanOil ? "Herbal Hair Oil" : productType;
+  const isLocalPhaki = product.id === LOCAL_PHAKI_PRODUCT.id;
+  const displayTitle = isAlSultanOil ? "Al Sultan Herbal Hair Oil" : isLocalPhaki ? "Al Sultan Phaki" : product.title;
+  const displayType = isAlSultanOil ? "Herbal Hair Oil" : isLocalPhaki ? "Phaki" : productType;
   const isPhaki = displayType.toLowerCase().includes("phaki");
-  const displayImage = isAlSultanOil ? { url: AL_SULTAN_HERBAL_HAIR_OIL_IMAGE, altText: "Al Sultan Herbal Hair Oil bottle" } : product.images[0];
+  const displayImage = isAlSultanOil ? { url: AL_SULTAN_HERBAL_HAIR_OIL_IMAGE, altText: "Al Sultan Herbal Hair Oil bottle" } : isLocalPhaki ? { url: AL_SULTAN_PHAKI_IMAGE, altText: "Al Sultan Phaki jar" } : product.images[0];
   const cleanDescription = product.description.replace(/<[^>]+>/g, "");
   const formatMatch = cleanDescription.match(/Format:\s*([^H]+?)(?=Highlights:|$)/i)?.[1]?.trim();
   const highlights = cleanDescription.match(/Highlights:\s*(.*)$/i)?.[1]?.split(";").map((item) => item.trim()).filter(Boolean) ?? [];
   const displayPrice = isAlSultanOil ? { amount: "1000", currencyCode: "PKR" } : variant.price;
-  const orderHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Assalam-o-Alaikum, I would like to order Al Sultan Herbal Hair Oil for PKR 1,000.")}`;
+  const displayPriceLabel = isLocalPhaki ? "Price on WhatsApp" : money(displayPrice);
+  const orderHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(isLocalPhaki ? "Assalam-o-Alaikum, I would like to order Al Sultan Phaki. Please confirm 500g, 1,000g, and 2,500g prices and delivery." : "Assalam-o-Alaikum, I would like to order Al Sultan Herbal Hair Oil for PKR 1,000.")}`;
 
   return (
     <article className="product-card group">
@@ -66,15 +87,15 @@ function ProductCard({ product, onOpen }: { product: Product; onOpen: () => void
         <p className="mt-3 line-clamp-2 text-sm leading-6 text-[#6f796f]">{cleanDescription.split("Format:")[0].trim()}</p>
         <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold text-[#174f3b]">{formatMatch && <span className="rounded-full bg-[#f7f0de] px-3 py-1">{formatMatch}</span>}{highlights.slice(0, 3).map((highlight) => <span key={highlight} className="rounded-full bg-[#edf3e6] px-3 py-1">{highlight}</span>)}</div>
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
-          <span className="font-display text-2xl text-[#174f3b]">{money(displayPrice)}</span>
-          <div className="flex flex-wrap justify-end gap-2"><Button
+          <span className="font-display text-xl text-[#174f3b]">{displayPriceLabel}</span>
+          <div className="flex flex-wrap justify-end gap-2">{isLocalPhaki ? <a href={orderHref} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full bg-[#174f3b] px-4 py-2 text-xs font-bold text-white hover:bg-[#0e392b]">Ask price</a> : <Button
             className="rounded-full bg-[#174f3b] px-4 text-white shadow-lg shadow-[#174f3b]/15 hover:bg-[#0e392b]"
             disabled={!variant.availableForSale || loading}
             onClick={() => addItem(variant.id)}
           >
             <ShoppingBag size={16} />
             {variant.availableForSale ? "Add to bag" : "Sold out"}
-          </Button>{isAlSultanOil && <a href={orderHref} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-[#174f3b]/20 px-4 text-xs font-bold text-[#174f3b] hover:bg-[#f4ead2]">Order on WhatsApp</a>}</div>
+          </Button>}{isAlSultanOil && <a href={orderHref} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-[#174f3b]/20 px-4 text-xs font-bold text-[#174f3b] hover:bg-[#f4ead2]">Order on WhatsApp</a>}</div>
         </div>
       </div>
     </article>
@@ -117,14 +138,16 @@ function CartDrawer() {
 function ProductDialog({ product, open, onOpenChange }: { product: Product | null; open: boolean; onOpenChange: (open: boolean) => void }) {
   const { addItem, loading } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("500g");
   if (!product) return null;
   const isAlSultanOil = /signature herbal oil|al sultan herbal hair oil|al sultan hair oil/i.test(product.title);
-  const title = isAlSultanOil ? "Al Sultan Herbal Hair Oil" : product.title;
-  const imageUrl = isAlSultanOil ? AL_SULTAN_HERBAL_HAIR_OIL_IMAGE : product.images[0]?.url;
+  const isLocalPhaki = product.id === LOCAL_PHAKI_PRODUCT.id;
+  const title = isAlSultanOil ? "Al Sultan Herbal Hair Oil" : isLocalPhaki ? "Al Sultan Phaki" : product.title;
+  const imageUrl = isAlSultanOil ? AL_SULTAN_HERBAL_HAIR_OIL_IMAGE : isLocalPhaki ? AL_SULTAN_PHAKI_IMAGE : product.images[0]?.url;
   const imageAlt = isAlSultanOil ? "Al Sultan Herbal Hair Oil bottle" : product.title;
   const price = isAlSultanOil ? { amount: "1000", currencyCode: "PKR" } : product.variants[0].price;
-  const orderHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Assalam-o-Alaikum, I would like to order ${title} x${quantity} for ${money(price)}.`)}`;
-  const description = isAlSultanOil ? "A carefully presented herbal hair oil for an everyday personal-care ritual. Confirm the exact ingredients and approved label benefits before publishing the final product copy." : product.description.replace(/<[^>]+>/g, "");
+  const orderHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(isLocalPhaki ? `Assalam-o-Alaikum, I would like to order Al Sultan Phaki in ${selectedSize}. Please confirm the price and delivery.` : `Assalam-o-Alaikum, I would like to order ${title} x${quantity} for ${money(price)}.`)}`;
+  const description = isAlSultanOil ? "A carefully presented herbal hair oil for an everyday personal-care ritual. Confirm the exact ingredients and approved label benefits before publishing the final product copy." : isLocalPhaki ? "A traditional herbal phaki blend presented in a sealed jar. The owner should confirm final ingredients, approved benefits, usage, storage, and prices before publishing." : product.description.replace(/<[^>]+>/g, "");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -132,10 +155,11 @@ function ProductDialog({ product, open, onOpenChange }: { product: Product | nul
         <div className="grid gap-7 md:grid-cols-[.85fr_1.15fr] md:items-center">
           <div className="flex min-h-72 items-center justify-center rounded-[1.5rem] bg-[#f4ead2] p-6"><img src={imageUrl} alt={imageAlt} className="max-h-80 w-full object-contain" /></div>
           <div>
-            <DialogHeader><p className="text-xs font-bold uppercase tracking-[0.18em] text-[#c08a2c]">Herbal Hair Oil</p><DialogTitle className="font-display text-3xl leading-tight text-[#174f3b]">{title}</DialogTitle><DialogDescription className="pt-2 text-base leading-7 text-[#6f796f]">{description}</DialogDescription></DialogHeader>
-            <div className="mt-5 flex flex-wrap gap-2 text-sm font-semibold text-[#174f3b]"><span className="rounded-full bg-[#f7f0de] px-3 py-1">PKR 1,000</span><span className="rounded-full bg-[#edf3e6] px-3 py-1">Bottle size: confirm on label</span><span className="rounded-full bg-[#edf3e6] px-3 py-1">Cash on delivery</span></div>
-            <div className="mt-6 grid gap-3 text-sm leading-6 text-[#5f7067]"><p><strong className="text-[#174f3b]">Product benefits:</strong> supports a simple everyday hair-care routine, presented in a clear bottle, and easy to order across Pakistan.</p><p><strong className="text-[#174f3b]">Ingredients:</strong> please confirm the exact label ingredients before final publication.</p><p><strong className="text-[#174f3b]">Usage:</strong> follow the final bottle label directions and use only as instructed on the approved packaging.</p><p><strong className="text-[#174f3b]">Delivery:</strong> shipping charges and final delivery details are confirmed when the order is placed.</p></div>
-            <div className="mt-7 flex flex-wrap items-center gap-3"><div className="flex items-center rounded-full border border-[#eadfc7] bg-white"><button aria-label="Decrease quantity" onClick={() => setQuantity((value) => Math.max(1, value - 1))} className="px-3 py-2 text-[#174f3b]">−</button><span className="w-8 text-center font-semibold">{quantity}</span><button aria-label="Increase quantity" onClick={() => setQuantity((value) => value + 1)} className="px-3 py-2 text-[#174f3b]">+</button></div><Button disabled={loading} onClick={() => addItem(product.variants[0].id)} className="rounded-full bg-[#174f3b] px-5 text-white hover:bg-[#0e392b]">Add to bag</Button>{isAlSultanOil && <a href={orderHref} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-[#174f3b]/20 px-5 py-2 text-sm font-bold text-[#174f3b] hover:bg-[#f4ead2]">Buy on WhatsApp</a>}</div>
+            <DialogHeader><p className="text-xs font-bold uppercase tracking-[0.18em] text-[#c08a2c]">{isLocalPhaki ? "Phaki" : "Herbal Hair Oil"}</p><DialogTitle className="font-display text-3xl leading-tight text-[#174f3b]">{title}</DialogTitle><DialogDescription className="pt-2 text-base leading-7 text-[#6f796f]">{description}</DialogDescription></DialogHeader>
+            <div className="mt-5 flex flex-wrap gap-2 text-sm font-semibold text-[#174f3b]">{isLocalPhaki ? <><span className="rounded-full bg-[#f7f0de] px-3 py-1">500g / 1,000g / 2,500g</span><span className="rounded-full bg-[#edf3e6] px-3 py-1">Price on WhatsApp</span></> : <><span className="rounded-full bg-[#f7f0de] px-3 py-1">PKR 1,000</span><span className="rounded-full bg-[#edf3e6] px-3 py-1">Bottle size: confirm on label</span></>}<span className="rounded-full bg-[#edf3e6] px-3 py-1">Cash on delivery</span></div>
+            {isLocalPhaki && <div className="mt-5"><label htmlFor="phaki-size" className="mb-2 block text-sm font-bold text-[#174f3b]">Choose size</label><select id="phaki-size" value={selectedSize} onChange={(event) => setSelectedSize(event.target.value)} className="h-11 w-full rounded-full border border-[#eadfc7] bg-white px-4 text-sm text-[#174f3b]"><option>500g</option><option>1,000g</option><option>2,500g</option></select></div>}
+            <div className="mt-6 grid gap-3 text-sm leading-6 text-[#5f7067]"><p><strong className="text-[#174f3b]">Product information:</strong> {isLocalPhaki ? "Sealed herbal phaki jar with 500g, 1,000g, and 2,500g options. Confirm final batch, net weight, price, and seller information from the packaging." : "Clear product presentation with final bottle size and label details to be confirmed."}</p><p><strong className="text-[#174f3b]">Product benefits:</strong> {isLocalPhaki ? "The supplied label presents a traditional herbal blend; publish only benefits that the owner confirms as approved." : "supports a simple everyday hair-care routine, presented in a clear bottle, and easy to order across Pakistan."}</p><p><strong className="text-[#174f3b]">Ingredients:</strong> {isLocalPhaki ? "The supplied label visibly lists ajwain, saunf, zeera, kalonji, podina, sukha dhania, sarso, and amla; verify the final label before publishing." : "please confirm the exact label ingredients before final publication."}</p><p><strong className="text-[#174f3b]">Usage:</strong> follow the final bottle label directions and use only as instructed on the approved packaging.</p><p><strong className="text-[#174f3b]">Storage:</strong> keep the sealed jar in a cool, dry place away from direct sunlight; follow the final label storage instructions.</p><p><strong className="text-[#174f3b]">Delivery:</strong> shipping charges and final delivery details are confirmed when the order is placed.</p></div>
+            <div className="mt-7 flex flex-wrap items-center gap-3">{!isLocalPhaki && <><div className="flex items-center rounded-full border border-[#eadfc7] bg-white"><button aria-label="Decrease quantity" onClick={() => setQuantity((value) => Math.max(1, value - 1))} className="px-3 py-2 text-[#174f3b]">−</button><span className="w-8 text-center font-semibold">{quantity}</span><button aria-label="Increase quantity" onClick={() => setQuantity((value) => value + 1)} className="px-3 py-2 text-[#174f3b]">+</button></div><Button disabled={loading} onClick={() => addItem(product.variants[0].id)} className="rounded-full bg-[#174f3b] px-5 text-white hover:bg-[#0e392b]">Add to bag</Button></>}{(isAlSultanOil || isLocalPhaki) && <a href={orderHref} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full border border-[#174f3b]/20 px-5 py-2 text-sm font-bold text-[#174f3b] hover:bg-[#f4ead2]">{isLocalPhaki ? "Ask price on WhatsApp" : "Buy on WhatsApp"}</a>}</div>
           </div>
         </div>
         <DialogFooter><p className="w-full text-xs text-[#8a8f86]">Please verify ingredients, benefits, bottle size, and usage directions from the final product label before advertising.</p></DialogFooter>
@@ -150,9 +174,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const hairOilProducts = products.filter((product) => !/phaki/i.test(`${product.title} ${product.productType || ""}`));
-  const categories = useMemo(() => hairOilProducts.length ? ["All", "Herbal Hair Oil"] : ["All"], [hairOilProducts.length]);
-  const visibleProducts = hairOilProducts.filter((product) => filter === "All" || filter === "Herbal Hair Oil");
+  const storefrontProducts = [LOCAL_PHAKI_PRODUCT, ...products.filter((product) => !/phaki/i.test(`${product.title} ${product.productType || ""}`))];
+  const categories = useMemo(() => ["All", "Herbal Hair Oil", "Phaki"], []);
+  const visibleProducts = storefrontProducts.filter((product) => filter === "All" || (filter === "Phaki" ? product.id === LOCAL_PHAKI_PRODUCT.id : product.id !== LOCAL_PHAKI_PRODUCT.id));
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Assalam-o-Alaikum, I would like to ask about Al Sultan Herbal Hair Oil.")}`;
 
   return (
