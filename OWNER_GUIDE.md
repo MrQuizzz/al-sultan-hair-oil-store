@@ -29,3 +29,11 @@ Add a product to the bag, increase and decrease the quantity, remove an item, an
 ## Publish
 
 After replacing the preview content and confirming checkout, save a project checkpoint from the Management UI. Then click **Publish** in the Management UI. The website will use the project’s generated domain unless a custom domain is configured in Settings → Domains. Publishing is a Management UI action; do not deploy from a local Replit shell.
+
+## Public links
+
+The live public storefront is available at https://pakoilshop-uggfyasn.manus.space.
+
+The public GitHub repository is available at https://github.com/MrQuizzz/al-sultan-hair-oil-store.
+
+The storefront currently supports Al Sultan Herbal Hair Oil at PKR 1,000 through the WhatsApp order path and Al Sultan Phaki variants of 250g at PKR 800, 500g at PKR 1,500, and 1,000g at PKR 3,000 through the selected-size WhatsApp order path. Shopify catalogue synchronization remains dependent on Shopify connector approval in the Management UI.

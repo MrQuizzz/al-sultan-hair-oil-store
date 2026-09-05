@@ -80,9 +80,14 @@
 - [x] Show the three Phaki variants in a polished clickable product dashboard/detail interface
 - [x] Update Phaki WhatsApp messages and product information to use the selected size and price
 - [x] Validate responsive Phaki variant selection and checkout/order actions
-- [ ] Prepare the project for GitHub upload and confirm the target repository
+- [x] Prepare the project for GitHub upload and confirm the target repository
 
 - [x] Fix Phaki size selector values so each selected size maps to its exact variant price
 - [x] Validate each Phaki size selection and WhatsApp order message in the responsive product dialog
 
 - [x] Add an inspectable frontend interaction test for Phaki 250g, 500g, and 1,000g WhatsApp price messages
+
+- [x] Change the GitHub repository al-sultan-hair-oil-store from private to public
+- [x] Verify the public GitHub repository link and keep the storefront public link documented
+
+- [x] Document the public storefront URL in OWNER_GUIDE.md
