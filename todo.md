@@ -51,8 +51,13 @@
 
 - [x] Replace raw Shopify category filters with explicit hair-oil-focused display labels
 - [x] Expand payment guidance with concrete Pakistan checkout options and configuration notes
-- [ ] Save a checkpoint after the completed Al Sultan rebrand changes
+- [x] Save a checkpoint after the completed Al Sultan rebrand changes
 
 - [x] Adjust the supplied Al Sultan Herbal Hair Oil image to fit the product card cleanly without distortion
 - [x] Add a clickable product-detail and buy interface with image, PKR 1,000 price, quantity, and ordering actions
 - [x] Add safe, editable benefits, ingredients, usage, and product-information sections pending owner confirmation
+
+- [ ] Confirm Shopify product name and PKR 1,000 price synchronization after connector approval
+- [x] Prepare a Daraz-ready Al Sultan Herbal Hair Oil listing with title, category, price, image, description, and safe product fields
+- [x] Add Daraz Seller Center upload and publishing guidance
+- [x] Document that direct Daraz automation requires an approved Daraz seller/API connection
