@@ -75,3 +75,14 @@
 
 - [x] Add a dedicated Phaki storage section using safe placeholder wording until owner confirmation
 - [x] Add a clearly labeled Phaki product-information section separate from benefits, ingredients, usage, and delivery
+
+- [x] Correct Al Sultan Phaki variants to 250g PKR 800, 500g PKR 1,500, and 1,000g PKR 3,000
+- [x] Show the three Phaki variants in a polished clickable product dashboard/detail interface
+- [x] Update Phaki WhatsApp messages and product information to use the selected size and price
+- [x] Validate responsive Phaki variant selection and checkout/order actions
+- [ ] Prepare the project for GitHub upload and confirm the target repository
+
+- [x] Fix Phaki size selector values so each selected size maps to its exact variant price
+- [x] Validate each Phaki size selection and WhatsApp order message in the responsive product dialog
+
+- [x] Add an inspectable frontend interaction test for Phaki 250g, 500g, and 1,000g WhatsApp price messages
