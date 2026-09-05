@@ -91,3 +91,12 @@
 - [x] Verify the public GitHub repository link and keep the storefront public link documented
 
 - [x] Document the public storefront URL in OWNER_GUIDE.md
+
+- [x] Add Al Sultan Hair Oil SEO title, description, canonical URL, and social metadata
+- [x] Add crawlable robots.txt and sitemap.xml for the public storefront domain
+- [x] Add JSON-LD structured data for the brand and confirmed products without fabricating claims
+- [x] Add Google Search Console submission and indexing guidance to OWNER_GUIDE.md
+- [x] Validate the SEO assets and save a checkpoint
+
+- [x] Remove unsupported InStock assertions from JSON-LD or replace them with only verified product facts
+- [x] Save a new checkpoint after the SEO metadata, crawl files, structured data, and Search Console guidance are finalized

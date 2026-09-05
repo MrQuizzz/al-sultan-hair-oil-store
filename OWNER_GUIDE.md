@@ -37,3 +37,7 @@ The live public storefront is available at https://pakoilshop-uggfyasn.manus.spa
 The public GitHub repository is available at https://github.com/MrQuizzz/al-sultan-hair-oil-store.
 
 The storefront currently supports Al Sultan Herbal Hair Oil at PKR 1,000 through the WhatsApp order path and Al Sultan Phaki variants of 250g at PKR 800, 500g at PKR 1,500, and 1,000g at PKR 3,000 through the selected-size WhatsApp order path. Shopify catalogue synchronization remains dependent on Shopify connector approval in the Management UI.
+
+## Help Google discover the website
+
+Google does not guarantee that a new website appears immediately in search results. To request indexing, open [Google Search Console](https://search.google.com/search-console), add the property `https://pakoilshop-uggfyasn.manus.space/`, complete the ownership verification method Google provides, and submit `https://pakoilshop-uggfyasn.manus.space/sitemap.xml` under **Sitemaps**. You can also use **URL inspection** for the home page and choose **Request indexing**. Keep the website public, keep the robots file accessible, and share the public URL on the Al Sultan Facebook, TikTok, Instagram, and WhatsApp profiles so Google can discover it from more places. Search visibility can take time and is controlled by Google’s crawling and indexing systems.
