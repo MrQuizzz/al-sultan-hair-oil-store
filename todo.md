@@ -38,10 +38,10 @@
 - [x] Replace the temporary WhatsApp contact with 03025986280 / international format 923025986280
 - [x] Refresh the brand bio and contact copy for Al Sultan Hair Oil
 - [ ] Add owner-supplied oil photos, names, benefits, ingredients, sizes, and prices
-- [ ] Prepare accurate TikTok and Facebook advertising copy, captions, hooks, and WhatsApp order prompts
+- [x] Prepare accurate TikTok and Facebook advertising copy, captions, hooks, and WhatsApp order prompts
 
 - [ ] Set the confirmed Al Sultan Hair Oil price to PKR 1,000
-- [ ] Keep delivery charges configurable and display delivery confirmation at checkout
+- [x] Keep delivery charges configurable and display delivery confirmation at checkout
 - [x] Make the oil product card open product details with clear Add to Cart and Order Now actions
 
 - [x] Use the supplied bottle photo for Al Sultan Herbal Hair Oil in the storefront
