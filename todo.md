@@ -100,3 +100,9 @@
 
 - [x] Remove unsupported InStock assertions from JSON-LD or replace them with only verified product facts
 - [x] Save a new checkpoint after the SEO metadata, crawl files, structured data, and Search Console guidance are finalized
+
+- [ ] Add GitHub Pages deployment configuration for the public storefront repository
+- [ ] Build and push the GitHub Pages site with the correct repository base path
+- [ ] Verify the short GitHub Pages URL or document that GitHub activation is still pending
+
+- [ ] Fix GitHub Pages workflow pnpm setup so it uses the packageManager version without a version conflict
